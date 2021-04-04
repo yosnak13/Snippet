@@ -33,8 +33,11 @@
           this.message = "Set Message"; //Vueオブジェクト内の変数messageを参照して、'Set Message'を代入
         },
         changeMsg: function(){
-          this.message = "changed Message"  //ボタンクリックでメッセージを変化
-          this.message2 = this.list[0]['title'] //listで定義した連想配列の配列の1つ目の要素のtitleキー から値を取り出してmessage2に代入
+          this.message = "Changed Message"  //ボタンクリックでメッセージを変化
+          axios.get('snippets.json')  //axiosでRailsで実装したAPIを呼び出す
+          .then(response => (         //呼び出したAPIのレスポンスを'=>()'の中でresponseとして値を渡して処理
+            this.message2 = response.data[0]['title'] //spliteで登録したデータをjson形式で取得して1件目のタイトルをmessage2に代入
+          ))
         },
       }
     });
