@@ -16,6 +16,12 @@
       <li v-for="data in list">{{ data.title }}</li>
     </ul>
     <button v-on:click="listSnippet">listSnippet</button>
+    <div>
+      <input v-model="title" placeholder="title">
+      <input v-model="language" placeholder="language">
+      <input v-model="contents" placeholder="contents">
+      <!-- v-modelとするとで、data(){}で定義した変数の値を表示 -->
+    </div>
     <button v-on:click="postSnippet">postSnippet</button>
   </div>
 
@@ -26,7 +32,10 @@
         return {
           message: "Hello Vue!",
           message2: "Hoge",
-          list: [{ title: 'title1' }, { title: 'title2' }]  //変数listに連想配列を定義
+          list: [{ title: 'title1' }, { title: 'title2' }],  //変数listに連想配列を定義
+          title: 'new title',
+          language: 'Ruby',
+          contents: 'contents'
         };
       },
 
