@@ -11,6 +11,7 @@
 <body>
   <div id="app">
     <p>{{ message }}</p>
+    <p>{{ message2 }}</p>
   </div>
 
   <script>
@@ -18,7 +19,8 @@
       el: "#app", //Vue.js形式で書かれたコードの実行結果を反映させるidの指定
       data(){ // {}で囲まれた箇所では、変数の定義と初期値の代入ができる
         return {
-          message: "Hello Vue!"
+          message: "Hello Vue!",
+          message2: "Hoge"
         };
       }
     });
