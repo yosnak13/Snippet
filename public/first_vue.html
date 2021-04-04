@@ -12,16 +12,28 @@
   <div id="app">
     <p>{{ message }}</p>
     <p>{{ message2 }}</p>
+    <button v-on:click="changeMsg">Change</button> <!--クリック時にchangeMsgメソッドを実行-->
   </div>
 
   <script>
-    new Vue({ //Vueオブジェクトを定義
-      el: "#app", //Vue.js形式で書かれたコードの実行結果を反映させるidの指定
-      data(){ // {}で囲まれた箇所では、変数の定義と初期値の代入ができる
+    new Vue({                     //Vueオブジェクトを定義
+      el: "#app",                 //Vue.js形式で書かれたコードの実行結果を反映させるidの指定
+      data(){                     // {}で囲まれた箇所では、変数の定義と初期値の代入ができる
         return {
           message: "Hello Vue!",
           message2: "Hoge"
         };
+      },
+      mounted(){                  //アプリ立ち上げ後最初のタイミングで実行される関数を定義
+        this.setMsg();            //これから定義するsetMsgメソッドを実行
+      },
+      methods: {                  //上記で定義したVueオブジェクト内に、関数を定義
+        setMsg: function(){       //処理内容
+          this.message = "Set Message"; //Vueオブジェクト内の変数messageを参照して、'Set Message'を代入
+        },
+        changeMsg: function(){
+          this.message = "changed Message"//ボタンクリックに応じて
+        },
       }
     });
   </script>
