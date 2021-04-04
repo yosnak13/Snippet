@@ -2,7 +2,6 @@
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
@@ -13,34 +12,48 @@
     <p>{{ message }}</p>
     <p>{{ message2 }}</p>
     <button v-on:click="changeMsg">Change</button> <!--クリック時にchangeMsgメソッドを実行-->
+    <ul>
+      <li v-for="data in list">{{ data.title }}</li>
+    </ul>
+    <button v-on:click="listSnippet">listSnippet</button>
   </div>
 
   <script>
     new Vue({                     //Vueオブジェクトを定義
       el: "#app",                 //Vue.js形式で書かれたコードの実行結果を反映させるidの指定
-      data(){                     // {}で囲まれた箇所では、変数の定義と初期値の代入ができる
+      data() {                    // {}で囲まれた箇所では、変数の定義と初期値の代入ができる
         return {
           message: "Hello Vue!",
           message2: "Hoge",
-          list: [{title:'title1'}, {title:'title2'}]  //変数listに連想配列を定義
+          list: [{ title: 'title1' }, { title: 'title2' }]  //変数listに連想配列を定義
         };
       },
+
       mounted(){                  //アプリ立ち上げ後最初のタイミングで実行される関数を定義
         this.setMsg();            //これから定義するsetMsgメソッドを実行
       },
+
       methods: {                  //上記で定義したVueオブジェクト内に、関数を定義
         setMsg: function(){       //処理内容
           this.message = "Set Message"; //Vueオブジェクト内の変数messageを参照して、'Set Message'を代入
         },
+
         changeMsg: function(){
           this.message = "Changed Message"  //ボタンクリックでメッセージを変化
-          axios.get('snippets.json')  //axiosでRailsで実装したAPIを呼び出す
-          .then(response => (         //呼び出したAPIのレスポンスを'=>()'の中でresponseとして値を渡して処理
+          axios.get('/snippets.json')  //axiosでRailsで実装したAPIを呼び出す
+          .then(response => (  //呼び出したAPIのレスポンスを'=>()'の中でresponseとして値を渡して処理
             this.message2 = response.data[0]['title'] //spliteで登録したデータをjson形式で取得して1件目のタイトルをmessage2に代入
-          ))
+          ));
         },
+
+        listSnippet: function() {
+          axios.get('/snippets.json')
+          .then(response => (
+            this.list = response.data
+          ));
+        }
       }
-    });
+    })
   </script>
 </body>
 </html>
