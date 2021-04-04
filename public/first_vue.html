@@ -4,7 +4,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
-
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
   <title>Snippet App</title>
 </head>
@@ -21,7 +21,8 @@
       data(){                     // {}で囲まれた箇所では、変数の定義と初期値の代入ができる
         return {
           message: "Hello Vue!",
-          message2: "Hoge"
+          message2: "Hoge",
+          list: [{title:'title1'}, {title:'title2'}]  //変数listに連想配列を定義
         };
       },
       mounted(){                  //アプリ立ち上げ後最初のタイミングで実行される関数を定義
@@ -32,7 +33,8 @@
           this.message = "Set Message"; //Vueオブジェクト内の変数messageを参照して、'Set Message'を代入
         },
         changeMsg: function(){
-          this.message = "changed Message"//ボタンクリックに応じて
+          this.message = "changed Message"  //ボタンクリックでメッセージを変化
+          this.message2 = this.list[0]['title'] //listで定義した連想配列の配列の1つ目の要素のtitleキー から値を取り出してmessage2に代入
         },
       }
     });
