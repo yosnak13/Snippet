@@ -33,10 +33,12 @@
               data()で定義した配列の各要素を要素の数分だけ、
               新たな変数snippetに代入し、v-cardで扱える" -->
             <v-card-title primary-title>
-              <h3 class="headline">Snippet Title</h3>
+              <h3 class="headline">{{ snippet.title }}</h3>
+              <!-- v-forで配列snippetListから1つ目の要素からくり返絵して
+              タグ<v-card>の範囲内で変数snippetとして扱える -->
             </v-card-title>
             <div style="margin: 10px 20px;">
-              <textarea style="width:100%; height:300px; background-color:#efefef; padding:3px">hoge</textarea>
+              <textarea style="width:100%; height:300px; background-color:#efefef; padding:3px">{{ snippet.contents }}</textarea>
             </div>
             <v-card-actions>
               <v-btn flat color="red">Update</v-btn>
@@ -54,13 +56,20 @@
       data() {
         return {
           snippetList: ['', ''], //配列の定義
+          allData: ['', ''],
         }
       },
       mounted() {
-
+        this.listSnippet();
       },
       methods: {
-
+        listSnippet: function() {
+          axios.get('/snippets.json')
+          .then(response => {
+            this.allData = response.data
+            this.snippetList = this.allData
+          });
+        },
       }
     })
 
