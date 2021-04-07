@@ -28,7 +28,10 @@
           </div>
         </v-flex>
         <v-flex xs7>
-          <v-card style="margin-top: 10px">
+          <v-card style="margin-top: 10px" v-for="snippet in snippetList">
+            <!-- v-for="新変数名 in data()で定義した配列は、
+              data()で定義した配列の各要素を要素の数分だけ、
+              新たな変数snippetに代入し、v-cardで扱える" -->
             <v-card-title primary-title>
               <h3 class="headline">Snippet Title</h3>
             </v-card-title>
@@ -50,7 +53,7 @@
       el: '#app',
       data() {
         return {
-
+          snippetList: ['', ''], //配列の定義
         }
       },
       mounted() {
