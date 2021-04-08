@@ -47,6 +47,16 @@
           </v-card>
         </v-flex>
       </v-layout>
+
+      <!-- modeal window -->
+      <v-dialog v-model="dialogPostFlag" width="800" persistent>
+      <!--v-dialogはv-model=変数名でVue側で保持している変数を、binding(紐付け)できる  -->
+        <v-card>
+          <v-card-title class="headline red lighten-3 white--text primary-title">
+            Create From
+          </v-card-title>
+        </v-card>
+      </v-dialog>
     </v-container>
   </v-app>
   <script>
@@ -57,6 +67,7 @@
         return {
           snippetList: ['', ''], //配列の定義
           allData: ['', ''],
+          dialogPostFlag: true,
         }
       },
       mounted() {
