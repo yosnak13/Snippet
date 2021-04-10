@@ -67,6 +67,18 @@
                 </textarea>
               </div>
           </v-card-text>
+
+          <v-divider></v-divider>
+
+          <v-card-actions>
+            <v-btn color="#gray lighten-4" flat v-on:click="togglePostModal">
+              Cancel
+            </v-btn>
+            <v-spacer></v-spacer>
+            <v-btn color="red" flat v-on:click="postSnippet">
+              Add Snippet
+            </v-btn>
+          </v-card-actions>
         </v-card>
       </v-dialog>
     </v-container>
@@ -96,6 +108,20 @@
             this.snippetList = this.allData
           });
         },
+
+        // togglePostModal: function(){
+        //   this.dialogPostFlag = !this.dialogPostFlag
+        // },
+        // postSnippet: function(){
+        //   axios.post('/snippets.json', {title.this.postTitle, language:this.postLanguage, contents:this.postContents})
+        //   .then(resoponse => {
+        //     this.listSnippet();
+        //     this.postTitle = ''
+        //     this.postLanguage = ''
+        //     this.postContents = ''
+        //   });
+        //   this.dialogPostFlag = !this.dialogPostFlag
+        // }
       }
     })
 
