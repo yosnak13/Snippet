@@ -108,20 +108,21 @@
             this.snippetList = this.allData
           });
         },
+        togglePostModal: function () {
+          this.dialogPostFlag = !this.dialogPostFlag
+        },
+        postSnippet: function () {
+          axios.post('/snippets.json', { title: this.postTitle, language: this.postLanguage, contents: this.postContents })
+            .then(response => {
+              this.listSnippet();  // 説明 3.21
+              this.postTitle = ''
+              this.postLanguage = ''
+              this.postContents = ''
+            }
+            );
 
-        // togglePostModal: function(){
-        //   this.dialogPostFlag = !this.dialogPostFlag
-        // },
-        // postSnippet: function(){
-        //   axios.post('/snippets.json', {title.this.postTitle, language:this.postLanguage, contents:this.postContents})
-        //   .then(resoponse => {
-        //     this.listSnippet();
-        //     this.postTitle = ''
-        //     this.postLanguage = ''
-        //     this.postContents = ''
-        //   });
-        //   this.dialogPostFlag = !this.dialogPostFlag
-        // }
+          this.dialogPostFlag = !this.dialogPostFlag // 説明 3.22
+        },
       }
     })
 
