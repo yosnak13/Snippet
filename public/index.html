@@ -15,7 +15,8 @@
     <v-toolbar color="red lighten-3 dark">
       <v-toolbar-title>Snippet App</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn flat>New Snippet</v-btn>
+      <!-- クリックでmodalがpopup↓ -->
+      <v-btn flat v-on:click="togglePostModal()">New Snippet</v-btn>
     </v-toolbar>
     <v-container style="height: 1000px; max-width: 2400px;">
       <v-layout>
@@ -91,7 +92,7 @@
         return {
           snippetList: ['', ''], //配列の定義
           allData: ['', ''],
-          dialogPostFlag: true,
+          dialogPostFlag: false,//ボタン押下でmodal表示
           postTitle:'',
           postLanguage:'',
           postContents:'',
@@ -114,14 +115,14 @@
         postSnippet: function () {
           axios.post('/snippets.json', { title: this.postTitle, language: this.postLanguage, contents: this.postContents })
             .then(response => {
-              this.listSnippet();  // 説明 3.21
+              this.listSnippet();
               this.postTitle = ''
               this.postLanguage = ''
               this.postContents = ''
             }
             );
 
-          this.dialogPostFlag = !this.dialogPostFlag // 説明 3.22
+          this.dialogPostFlag = !this.dialogPostFlag //!は否定を示す演算子。falseの否定はture。
         },
       }
     })
