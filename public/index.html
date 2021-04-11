@@ -49,7 +49,7 @@
         </v-flex>
       </v-layout>
 
-      <!-- modeal window -->
+      <!-- 投稿用modal window -->
       <v-dialog v-model="dialogPostFlag" width="800" persistent>
         <!--v-dialogはv-model=変数名でVue側で保持している変数を、binding(紐付け)できる  -->
         <v-card>
@@ -82,6 +82,7 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
+
       <!-- 更新用modal window -->
       <v-dialog v-model="dialogPutFlag" width="800" persistent>
         <v-card>
@@ -89,14 +90,14 @@
             Edit Form
           </v-card-title>
 
-          <v-text-field v-model="postTitle" label="Snippet Title" required style="margin:20px; margin-top: 30px;"></v-text-field>
+          <v-text-field v-model="putTitle" label="Snippet Title" required style="margin:20px; margin-top: 30px;"></v-text-field>
           <v-flex d-flex>
-            <v-text-field v-model="postLanguage" label="Language" required style="margin:20px; margin-bottom: 0px; margin-left: 20px;"></v-text-field>
+            <v-text-field v-model="putLanguage" label="Language" required style="margin:20px; margin-bottom: 0px; margin-left: 20px;"></v-text-field>
           </v-flex>
           <v-card-text>
             <p>Snippet</p>
             <div style="width:100%;">
-              <textarea style="width:100%; height:300px; background-color: #efefef; padding:3px" v-model='postContents'></textarea>
+              <textarea style="width:100%; height:300px; background-color: #efefef; padding:3px" v-model='putContents'></textarea>
             </div>
           </v-card-text>
 
