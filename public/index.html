@@ -44,7 +44,7 @@
             <v-card-actions>
               <!-- 更新したいsnippetのidを引数に渡して更新を実装 -->
               <v-btn flat color="red" v-on:click="togglePutModal(snippet.id)">Update</v-btn>
-              <v-btn flat color="gray" v-on:click="toggleDeleteModal()">Delete</v-btn>
+              <v-btn flat color="gray" v-on:click="toggleDeleteModal(snippet.id)">Delete</v-btn>
             </v-card-actions>
           </v-card>
         </v-flex>
