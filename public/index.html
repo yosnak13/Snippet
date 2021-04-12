@@ -175,8 +175,7 @@
         },
         //update　メソッド
         putSnippet: function(){
-          axios.put('/snippets' + this.id + '.json',
-          {title:this.putTitle, language:this.Language, contents:this.putCOntents})
+          axios.put('/snippets/' + this.id + '.json', { title: this.putTitle, language: this.putLanguage, contents: this.putContents })
           .then(response => {
             this.listSnippet();
           });
