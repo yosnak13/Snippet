@@ -25,6 +25,8 @@
             <h2>Snippets Shortcut</h2>
             <ul>
               <li v-for="snippet in snippetList"><span id='name' v-on:click="goElem(snippet.id)">[{{ snippet.language }}] {{ snippet.title }}</span></li>
+              <!-- v-for...で配列snippetListの各要素をsnippetに代入させながら繰り返し実行。
+              v-on:click="goElem..."とすることでクリック時にsnippetのid keyの値を引数としてメソッドgoElemを実行 -->
             </ul>
           </div>
         </v-flex>
@@ -34,6 +36,8 @@
               data()で定義した配列の各要素を要素の数分だけ、
               新たな変数snippetに代入し、v-cardで扱える" -->
             <v-card-title primary-title>
+              <a v-bind:id="snippet.id"></a>
+              <!-- コンテンツを参照する先のidを記載 -->
               <h3 class="headline">{{ snippet.title }}</h3>
               <!-- v-forで配列snippetListから1つ目の要素からくり返絵して
               タグ<v-card>の範囲内で変数snippetとして扱える -->
@@ -215,6 +219,10 @@
         toggleDeleteModal: function(id){
           this.id = id
           this.dialogDeleteFlag = !this.dialogDeleteFlag
+        },
+        goElem: function(id){
+          //指定した箇所までスクロール
+          document.getElementById(id).scrollIntoView(true)
         },
       }
     })
