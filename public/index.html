@@ -39,7 +39,9 @@
             </ul>
           </div>
         </v-flex>
-        <v-flex xs7>
+        <v-flex xs7 style='margin: 10px'>
+          <h2>Search Snippet</h2>
+          <v-text-field v-model="searchWord" v-on:keyup="abstruct" label="Input Keyword" style='margin-top: 4px'></v-text-field>
           <v-card style="margin-top: 10px" v-for="snippet in snippetList">
             <!-- v-for="新変数名 in data()で定義した配列は、
               data()で定義した配列の各要素を要素の数分だけ、
@@ -170,6 +172,7 @@
           languagesForEdit:[],
           language:'All',
           dialogPostFlag: false,//ボタン押下でmodal表示
+          searchWord:'',
           postTitle:'',
           postLanguage:'',
           postContents:'',
@@ -259,16 +262,22 @@
           document.getElementById("app").scrollIntoView(true)
         },
         abstruct: function () {
-          if (this.language == 'ALL') { // 説明 4.4
+          if (this.language == 'ALL') {
             this.snippetList = []
-            for (i = 0; i < this.allData.length; i++) { // 説明 4.5
-              this.snippetList.push(this.allData[i]) // 説明 4.5
+            for (i = 0; i < this.allData.length; i++) {
+              if ((this.allData[i].contents.indexOf(this.searchWord) !== -1) ||
+              (this.allData[i].title.indexOf(this.searchWord) !== -1) ||
+              (this.allData[i].language.indexOf(this.searchWord) !== -1)) {
+                this.snippetList.push(this.allData[i])
+              }
             }
           } else if (this.language != '') {
             this.snippetList = []
-            for (i = 0; i < this.allData.length; i++) { // 説明 4.5
-              if (this.allData[i].language == this.language) { // 説明 4.6
-                this.snippetList.push(this.allData[i]) // 説明 4.5
+            for (i = 0; i < this.allData.length; i++) {
+              if (this.allData[i].language == this.language) {
+                if ((this.allData[i].contents.indexOf(this.searchWord) !== -1) || (this.allData[i].title.indexOf(this.searchWord) !== -1) || (this.allData[i].language.indexOf(this.searchWord) !== -1)) { // 説明 4.7
+                  this.snippetList.push(this.allData[i])
+                }
               }
             }
           }
