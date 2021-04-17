@@ -49,7 +49,9 @@
             <v-card-title primary-title>
               <a v-bind:id="snippet.id"></a>
               <!-- コンテンツを参照する先のidを記載 -->
-              <h3 class="headline">{{ snippet.title }}</h3>
+              <div style="background-color:#FFCDD2">
+                <h3 class="headline">[{{ snippet.language }}] {{ snippet.title }}</h3>
+              </div>
               <!-- v-forで配列snippetListから1つ目の要素からくり返絵して
               タグ<v-card>の範囲内で変数snippetとして扱える -->
             </v-card-title>
