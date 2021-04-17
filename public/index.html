@@ -24,7 +24,7 @@
           <div style="margin: 10px">
 
             <h2>Select Language</h2>
-            <v-select v-model="language" :items="languages" label="Language" v-on:change="abstruct"></v-select>
+              <v-select v-model='language' :items="languages" label="Language" v-on:change="abstruct"></v-select>
             <!-- v-select=select box,
               v-model="language"で選択した結果の値を代入する変数の紐付け
               :items="lauguages"で、選択候補の一覧を指定する配列
@@ -77,6 +77,8 @@
           <v-text-field v-model="postTitle" label="Snippet Title" required style="margin:20px; margin-top: 30px;"></v-text-field>
           <v-flex>
             <v-text-field v-model="postLanguage" label="Language" required style="margin:20px; margin-bottom: 0px; margin-left: 20px;"></v-text-field>
+            <v-select v-model='postLanguage' :items="languagesForEdit" label="Select from history" style='margin:20px; margin-bottom:0px;margin-left: 0px'></v-select>
+            </v-flex>
           </v-flex>
           <v-card-text>
             <p>Snippet</p>
@@ -165,6 +167,7 @@
           allData: ['', ''],
           //
           languages:['All'],
+          languagesForEdit:[],
           language:'All',
           dialogPostFlag: false,//ボタン押下でmodal表示
           postTitle:'',
@@ -199,7 +202,7 @@
           for (i=0;i<this.allData.length;i++){
             if (this.languages.indexOf(this.allData[i].language)==-1){
               this.languages.push(this.allData[i].language)
-              this.languageForEdit.push(this.allData[i].language)
+              this.languagesForEdit.push(this.allData[i].language)
             }
           }
         },
@@ -255,7 +258,21 @@
         goTop: function(){
           document.getElementById("app").scrollIntoView(true)
         },
-        
+        abstruct: function(){
+          if(this.language == 'ALL'){
+            this.snippetList = []
+            for(i=0;i<this.allData.length;i++){
+              this.snippetList.push(this.allData[i])
+            }
+          } else if(this.language != ''){
+            this.snippetList = []
+            for(i=0;i<this.allData.lengthli++){
+              if(this.allData[i].language == this.language){
+                this.snippetList.push(this.allData[i])
+              }
+            }
+          }
+        }
       }
     })
 
