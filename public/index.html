@@ -7,6 +7,7 @@
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vuetify@1.5/dist/vuetify.js"></script>
+  <script src="https://cdn.rawgit.com/showdownjs/showdown/1.9.0/dist/showdown.min.js"></script>
 
   <title>Snippet App</title>
 </head>
@@ -47,17 +48,19 @@
               data()で定義した配列の各要素を要素の数分だけ、
               新たな変数snippetに代入し、v-cardで扱える" -->
             <v-card-title primary-title>
-              <a v-bind:id="snippet.id"></a>
               <!-- コンテンツを参照する先のidを記載 -->
               <div style="background-color:#FFCDD2">
+                <a v-bind:id="snippet.id"></a>
                 <h3 class="headline">[{{ snippet.language }}] {{ snippet.title }}</h3>
               </div>
               <!-- v-forで配列snippetListから1つ目の要素からくり返絵して
               タグ<v-card>の範囲内で変数snippetとして扱える -->
             </v-card-title>
+
             <div style="margin: 10px 20px;">
-              <textarea style="width:100%; height:300px; background-color:#efefef; padding:3px">{{ snippet.contents }}</textarea>
+              <div v-html='showdown.makeHtml(snippet.contents)'></div>
             </div>
+
             <v-card-actions>
               <!-- 更新したいsnippetのidを引数に渡して更新を実装 -->
               <v-btn flat color="red" v-on:click="togglePutModal(snippet.id)">Update</v-btn>
@@ -81,7 +84,7 @@
           <v-text-field v-model="postTitle" label="Snippet Title" required style="margin:20px; margin-top: 30px;"></v-text-field>
           <v-flex>
             <v-text-field v-model="postLanguage" label="Language" required style="margin:20px; margin-bottom: 0px; margin-left: 20px;"></v-text-field>
-            <v-select v-model='postLanguage' :items="languagesForEdit" label="Select from history" style='margin:20px; margin-bottom:0px;margin-left: 0px'></v-select>
+            <v-select v-model='postLanguage' :items="languagesForEdit" label="Select from history" style='margin:20px; margin-bottom:0px;'></v-select>
             </v-flex>
           </v-flex>
           <v-card-text>
@@ -187,8 +190,12 @@
           dialogDeleteFlag: false,
         }
       },
-      mounted() {
+      mounted: function() {
         this.listSnippet();
+        options = { headerLevelStart: 3, omitExtraWLInCodeBlocks: true, tables: true, simpleLineBreaks: true, simplifiedAutoLink: true }
+        this.showdown = new showdown.Converter(options)
+        //optionsに連想配列型でshowdownの細かいオプションを定義し、
+        //new showdown...で扱える様にする
       },
       methods: {
         listSnippet: function() {
